@@ -46,6 +46,8 @@ var diff = function(){
 		// TODO escape all html characters
 		file0 = replaceAll(file0, "&nbsp;", " ");
 		file1 = replaceAll(file1, "&nbsp;", " ");
+		file0 = replaceAll(file0, "<span style=\"color: blue;\">\r</span>", "\r");
+		file1 = replaceAll(file1, "<span style=\"color: blue;\">\r</span>", "\r");
 
 		f0 = file0.split("\n");
 		f1 = file1.split("\n");
@@ -137,6 +139,12 @@ var diff = function(){
 			console.log(style[i]);
 			$('#' + first_diff_tag + ' > > ' + style[i][0]).addClass(style[i][1]);
 			$('#' + second_diff_tag + ' > > ' + style[i][0]).addClass(style[i][1]);
+			var line0 = $('#' + first_diff_tag + ' > > ' + style[i][0]).text();
+			var line1 = $('#' + second_diff_tag + ' > > ' + style[i][0]).text();
+			line0 = replaceAll(line0, "<span style=\"color: red;\">_</span>", "&nbsp;");
+			line1 = replaceAll(line1, "<span style=\"color: red;\">_</span>", "&nbsp;");
+			$('#' + first_diff_tag + ' > > ' + style[i][0]).text(line0);
+			$('#' + second_diff_tag + ' > > ' + style[i][0]).text(line1);
 		}
 
 		// Create association events
